@@ -6,13 +6,14 @@ def home(request):
     category_dresses = {}
 
     for category in categories:
-        dresses = Dress.objects.filter(subcategory__category=category)
+        dresses = Dress.objects.filter(subcategory__category=category).order_by('-id')[:3]  # Newest 3 dresses
         category_dresses[category] = dresses
 
     return render(request, 'home.html', {
         'categories': categories,
         'category_dresses': category_dresses
     })
+
 
 
 # About page
