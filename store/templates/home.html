@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dress Land</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  {% include 'partials/header.html' %}
+<!-- Main Banner -->
+<div class="main-banner" id="top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="left-content">
+                    <div class="thumb">
+                        <div class="inner-content">
+                            <h4>We Are Dress Land</h4>
+                            <span>Stylish, Elegant & Modern Wear</span>
+                            <div class="main-border-button">
+                                <a href="{% url 'products' %}">Shop Now</a> </div>
+                        </div>
+                        <img src="{% static 'images/left-banner-image.jpg' %}" alt="Banner">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="right-content">
+                    <div class="row">
+                    {% for category in categories %}
+                        <div class="col-lg-6">
+
+                            <div class="right-first-image">
+                                <div class="thumb">
+                                    <div class="inner-content">
+                                        <h4>{{ category.name }}</h4>
+                                    </div>
+                                    <div class="hover-content">
+                                        <div class="inner">
+                                            <h4>{{ category.name }}</h4>
+                                            <div class="main-border-button">
+                                                <a href="{% url 'category_detail' category.id %}">Discover More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if category.image %}
+                                    <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for category, dresses in category_dresses.items %}
+<section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-heading">
+                        <h2>{{ category.name }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div> <br>
+    <div class="container">
+        <div class="row">
+            {% for dress in dresses %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    {% if dress.image %}
+                    <a href="{% url 'single_product' dress.id %}"><img src="{{ dress.image.url }}" class="card-img-top" alt="{{ dress.name }}"></a>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ dress.name }}</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">₹{{ dress.price }}</span>
+                            <a href="{% url 'single_product' dress.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if dresses|length == 0 %}
+        <p>No dresses available in this category.</p>
+        {% endif %}
+    </div>
+</section>
+{% endfor %}
+
+
+
+
+{% include 'partials/footer.html' %}
+
+</body>
+</html>
+

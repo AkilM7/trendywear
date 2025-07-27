@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-hexashop.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl-carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+</head>
+
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div><div></div><div></div>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <a href="/" class="logo">
+                        <img src="{% static 'images/logo.png' %}" alt="Dress Land">
+                    </a>
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="{% url 'products' %}">Products</a></li>
+                        <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                    </ul>
+                    <a class="menu-trigger"><span>Menu</span></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+</body>
+</html>
+
