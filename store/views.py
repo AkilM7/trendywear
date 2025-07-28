@@ -5,6 +5,42 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import json
+from django.http import JsonResponse
+from .models import CartItem
+from django.core.files.base import ContentFile
+import requests
+from django.conf import settings
+from urllib.parse import urljoin
+
+@login_required(login_url='/login/')
+def add_to_cart(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+
+            product_name = data.get('product_name')
+            price = float(data.get('price'))
+            quantity = int(data.get('quantity'))
+            total_price = float(data.get('total_price'))
+            image_url = data.get('image_url')
+
+
+            cart_item = CartItem.objects.create(
+                user=request.user,
+                product_name=product_name,
+                product_image=image_url,  # Assuming you're saving path/URL
+                price=price,
+                quantity=quantity,
+                total_price=total_price,
+            )
+
+            return JsonResponse({'success': True, 'message': 'Item added to cart'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
+
 
 @login_required
 def profile_view(request):
