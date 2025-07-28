@@ -39,7 +39,7 @@ ROOT_URLCONF = 'dressshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # You can add BASE_DIR / 'templates' if you use a global templates folder
+        'DIRS': [BASE_DIR / 'templates'],  # You can add BASE_DIR / 'templates' if you use a global templates folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -47,6 +47,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'store.context_processors.categories_processor',
             ],
         },
     },
